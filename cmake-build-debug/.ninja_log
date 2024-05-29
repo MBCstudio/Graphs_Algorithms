@@ -1,0 +1,21 @@
+# ninja log v5
+0	494	7387104988983022	CMakeFiles/grafy_1.dir/main.cpp.obj	13576d4751596b42
+5	522	7387104989268906	CMakeFiles/grafy_1.dir/Menu.cpp.obj	db12316bddc42b1b
+9	655	7387104990594258	CMakeFiles/grafy_1.dir/Graph.cpp.obj	98842de4130b18dc
+656	885	7387104992853637	grafy_1.exe	7df095b8a04d894
+4	411	7387114996265736	CMakeFiles/grafy_1.dir/main.cpp.obj	13576d4751596b42
+8	463	7387114996793674	CMakeFiles/grafy_1.dir/Menu.cpp.obj	db12316bddc42b1b
+464	572	7387114997844630	grafy_1.exe	7df095b8a04d894
+3	690	7387147912945175	CMakeFiles/grafy_1.dir/main.cpp.obj	13576d4751596b42
+10	743	7387147913470413	CMakeFiles/grafy_1.dir/Menu.cpp.obj	db12316bddc42b1b
+7	852	7387147914546324	CMakeFiles/grafy_1.dir/Graph.cpp.obj	98842de4130b18dc
+852	1053	7387147916551038	grafy_1.exe	7df095b8a04d894
+3	407	7387190555155874	CMakeFiles/grafy_1.dir/main.cpp.obj	13576d4751596b42
+8	478	7387190555855903	CMakeFiles/grafy_1.dir/Menu.cpp.obj	db12316bddc42b1b
+11	639	7387190557457088	CMakeFiles/grafy_1.dir/Graph.cpp.obj	98842de4130b18dc
+639	741	7387190558462432	grafy_1.exe	7df095b8a04d894
+3	390	7387193705178016	CMakeFiles/grafy_1.dir/main.cpp.obj	13576d4751596b42
+7	477	7387193706043200	CMakeFiles/grafy_1.dir/Menu.cpp.obj	db12316bddc42b1b
+10	593	7387193707195378	CMakeFiles/grafy_1.dir/Graph.cpp.obj	98842de4130b18dc
+2	536	7387193912145808	CMakeFiles/grafy_1.dir/Graph.cpp.obj	98842de4130b18dc
+537	630	7387193913057369	grafy_1.exe	7df095b8a04d894
