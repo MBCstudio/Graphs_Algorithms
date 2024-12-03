@@ -8,10 +8,17 @@
 #include <cstdlib>
 #include <ctime>
 
-Menu::Menu() : graph(nullptr), currentProblem(NONE) {}
+// Konstruktor inicjalizujący wskaźniki i ustawiający bieżący problem na NONE
+Menu::Menu() : graph(nullptr), primAlgorithm(new PrimAlgorithm()), kruskalAlgorithm(new KruskalAlgorithm()),
+               dijkstraAlgorithm(new DijkstraAlgorithm()), fordBellmanAlgorithm(new FordBellmanAlgorithm()), currentProblem(NONE) {}
 
+// Destruktory, zwalnajace pamiec
 Menu::~Menu() {
     delete graph;
+    delete primAlgorithm;
+    delete kruskalAlgorithm;
+    delete dijkstraAlgorithm;
+    delete fordBellmanAlgorithm;
 }
 
 void Menu::displayMainMenu() {
@@ -25,11 +32,12 @@ void Menu::displayAlgorithmMenu() {
     std::cout << "1. Wczytaj dane z pliku." << std::endl;
     std::cout << "2. Wygeneruj graf losowo." << std::endl;
     std::cout << "3. Wyswietl graf." << std::endl;
-    std::cout << "4. Uruchom Algorytm 1 (Prim/Dijkstra)." << std::endl;
-    std::cout << "5. Uruchom Algorytm 2 (Kruskal/Forda-Bellman)." << std::endl;
+    std::cout << "4. Uruchom Algorytm 1." << std::endl;
+    std::cout << "5. Uruchom Algorytm 2." << std::endl;
     std::cout << "6. Powrot do wyboru problemu." << std::endl;
 }
 
+// Funkcja do wyboru porbleum, ktory ma być obsługiwany
 void Menu::selectProblem() {
     int choice;
     displayMainMenu();
@@ -45,14 +53,21 @@ void Menu::selectProblem() {
         case 3:
             currentProblem = NONE;
             std::cout << "Wychodzenie..." << std::endl;
-            break;
+            return;
+            //break;
         default:
             std::cout << "Nieprawidlowy wybor. Sprobuj ponownie." << std::endl;
             selectProblem();
             break;
     }
+
+    // Wybieranie czy graf jest skierowny, jeżeli jest wybor najkrotszej drogi
+    if (graph) {
+        graph->setDirected(currentProblem == SHORTEST_PATH);
+    }
 }
 
+// Funkcja do czytania z pliku
 void Menu::readFromFile() {
     std::string filename;
     std::cout << "Podaj nazwe pliku: ";
@@ -64,21 +79,25 @@ void Menu::readFromFile() {
         return;
     }
 
+    // Zapisywanie krawiedzi i wierzchołkow
     int E, V;
     file >> E >> V;
 
+    //Jezeli graf jest juz stworzony to go usuwa, tworzy nowy
     if (graph) delete graph;
-    graph = new AdjacencyListGraph(V); // Change to AdjacencyMatrixGraph if needed
+    graph = new AdjacencyListGraph(V, currentProblem == SHORTEST_PATH);
 
+    // Wczytywawnie poszczegolnych karawiedzi
     int u, v, weight;
     for (int i = 0; i < E; ++i) {
-        file >> u, v, weight;
+        file >> u >> v >> weight;
         graph->addEdge(u, v, weight);
     }
 
     file.close();
 }
 
+// Generowanie losowego grafu
 void Menu::generateRandomGraph() {
     int V, density;
     std::cout << "Podaj liczbe wierzcholkow: ";
@@ -87,11 +106,11 @@ void Menu::generateRandomGraph() {
     std::cin >> density;
 
     if (graph) delete graph;
-    graph = new AdjacencyListGraph(V); // Change to AdjacencyMatrixGraph if needed
+    graph = new AdjacencyListGraph(V, currentProblem == SHORTEST_PATH);
 
     srand(time(nullptr));
 
-    // Ensure the graph is initially a spanning tree
+    // Tworzenie początkowego drzewa spinającego
     std::vector<int> connected(V, 0);
     connected[0] = 1;
     int edgesAdded = 0;
@@ -104,11 +123,12 @@ void Menu::generateRandomGraph() {
         edgesAdded++;
     }
 
-    // Calculate additional edges to add based on the desired density
+    // Dodwanie kolenych krawedzi po utworzeniu drzewa spinajacego
     int maxEdges = V * (V - 1) / 2;
     int desiredEdges = maxEdges * density / 100;
     int additionalEdges = desiredEdges - edgesAdded;
 
+    // Dodawanie 'dodatkowych' krawiedzi do grafu z losowa waga do 100
     while (additionalEdges > 0) {
         int u = rand() % V;
         int v = rand() % V;
@@ -120,34 +140,118 @@ void Menu::generateRandomGraph() {
     }
 }
 
+// Wybranie ktora reprezentacja ma byc wybierana
 void Menu::displayGraph() {
-    if (graph) {
-        graph->display();
-    } else {
-        std::cout << "Graf nie jest zdefiniowany." << std::endl;
+    std::cout << "Wybierz sposob wyswietlania grafu:" << std::endl;
+    std::cout << "1. Listowo" << std::endl;
+    std::cout << "2. Macierzowo" << std::endl;
+
+    int choice;
+    std::cin >> choice;
+
+    switch (choice) {
+        case 1:
+            graph->displayList();
+            break;
+        case 2:
+            graph->displayMatrix();
+            break;
+        default:
+            std::cout << "Nieprawidlowy wybor." << std::endl;
+            break;
     }
 }
 
+// Uruchamienie 1 algorytmu (Prim lub Dijkstra)
 void Menu::runAlgorithm1() {
     if (currentProblem == MST) {
-        // Placeholder for Prim's algorithm
-        std::cout << "Uruchomiono Algorytm Prim." << std::endl;
+        //std::cout << "Podaj wierzcholek startowy: ";
+        int startVertex = 0;
+        //std::cin >> startVertex;
+
+        auto result = primAlgorithm->findMST(graph, startVertex);
+        std::cout << "Algorytm Prima wyznaczyl nastepujace krawedzie MST (Reprezentacja macierzowa):" << std::endl;
+        for (const auto& edge : result) {
+            std::cout << edge.first << " - " << edge.second <<std::endl;
+        }
+
+        std::cout << "Algorytm Prima wyznaczyl nastepujace krawedzie MST (Reprezentacja listowa):" << std::endl;
+        for (const auto& edge : result) {
+            std::cout << edge.first << " - " << edge.second << std::endl;
+        }
     } else if (currentProblem == SHORTEST_PATH) {
-        // Placeholder for Dijkstra's algorithm
-        std::cout << "Uruchomiono Algorytm Dijkstry." << std::endl;
+        std::cout << "Podaj wierzcholek startowy: ";
+        int startVertex;
+        std::cin >> startVertex;
+        std::cout << "Podaj wierzcholek koncowy: ";
+        int endVertex;
+        std::cin >> endVertex;
+
+        int totalCost;
+        auto path = dijkstraAlgorithm->findShortestPath(graph, startVertex, endVertex, totalCost, true);
+        std::cout << "Algorytm Dijkstry wyznaczyl najkrotsza sciezke (Reprezentacja listowa):" << std::endl;
+        for (int vertex : path) {
+            std::cout << vertex << " ";
+        }
+        std::cout << std::endl;
+        std::cout << "Calkowity koszt: " << totalCost << std::endl;
+
+        path = dijkstraAlgorithm->findShortestPath(graph, startVertex, endVertex, totalCost, false);
+        std::cout << "Algorytm Dijkstry wyznaczyl najkrotsza sciezke (Reprezentacja macierzowa):" << std::endl;
+        for (int vertex : path) {
+            std::cout << vertex << " ";
+        }
+        std::cout << std::endl;
+        std::cout << "Calkowity koszt: " << totalCost << std::endl;
     }
 }
 
+// Uruchamienie 2 algorytmu (Kruskal lub Ford-Bellman)
 void Menu::runAlgorithm2() {
     if (currentProblem == MST) {
-        // Placeholder for Kruskal's algorithm
-        std::cout << "Uruchomiono Algorytm Kruskal." << std::endl;
+        //std::cout << "Podaj wierzcholek startowy: ";
+        int startVertex = 0;
+        //std::cin >> startVertex;
+
+        auto result = kruskalAlgorithm->findMST(graph, startVertex);
+        std::cout << "Algorytm Kruskala wyznaczyl nastepujace krawedzie MST (Reprezentacja macierzowa):" << std::endl;
+        for (const auto& edge : result) {
+            std::cout << edge.first << " - " << edge.second << std::endl;
+        }
+
+        std::cout << "Algorytm Kruskala wyznaczyl nastepujace krawedzie MST (Reprezentacja listowa):" << std::endl;
+        for (const auto& edge : result) {
+            std::cout << edge.first << " - " << edge.second << std::endl;
+        }
+
     } else if (currentProblem == SHORTEST_PATH) {
-        // Placeholder for Bellman-Ford algorithm
-        std::cout << "Uruchomiono Algorytm Forda-Bellmana." << std::endl;
+        std::cout << "Podaj wierzcholek startowy: ";
+        int startVertex;
+        std::cin >> startVertex;
+        std::cout << "Podaj wierzcholek koncowy: ";
+        int endVertex;
+        std::cin >> endVertex;
+
+        int totalCost;
+        auto path = fordBellmanAlgorithm->findShortestPath(graph, startVertex, endVertex, totalCost, true);
+        std::cout << "Algorytm Forda-Bellmana wyznaczyl najkrotsza sciezke (Reprezentacja listowa):" << std::endl;
+        for (int vertex : path) {
+            std::cout << vertex << " ";
+        }
+        std::cout << std::endl;
+        std::cout << "Calkowity koszt: " << totalCost << std::endl;
+
+        path = fordBellmanAlgorithm->findShortestPath(graph, startVertex, endVertex, totalCost, false);
+        std::cout << "Algorytm Forda-Bellmana wyznaczyl najkrotsza sciezke (Reprezentacja macierzowa):" << std::endl;
+        for (int vertex : path) {
+            std::cout << vertex << " ";
+        }
+        std::cout << std::endl;
+        std::cout << "Calkowity koszt: " << totalCost << std::endl;
     }
 }
 
+// Petla głowna programu
 void Menu::start() {
     while (currentProblem == NONE) {
         selectProblem();

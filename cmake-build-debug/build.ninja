@@ -51,19 +51,43 @@ build cmake_object_order_depends_target_grafy_1: phony || CMakeFiles/grafy_1.dir
 
 build CMakeFiles/grafy_1.dir/main.cpp.obj: CXX_COMPILER__grafy_1_unscanned_Debug C$:/Users/cinek/CLionProjects/grafy_1/main.cpp || cmake_object_order_depends_target_grafy_1
   DEP_FILE = CMakeFiles\grafy_1.dir\main.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -static-libstdc++ -static-libgcc -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\grafy_1.dir
   OBJECT_FILE_DIR = CMakeFiles\grafy_1.dir
 
 build CMakeFiles/grafy_1.dir/Graph.cpp.obj: CXX_COMPILER__grafy_1_unscanned_Debug C$:/Users/cinek/CLionProjects/grafy_1/Graph.cpp || cmake_object_order_depends_target_grafy_1
   DEP_FILE = CMakeFiles\grafy_1.dir\Graph.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -static-libstdc++ -static-libgcc -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\grafy_1.dir
   OBJECT_FILE_DIR = CMakeFiles\grafy_1.dir
 
 build CMakeFiles/grafy_1.dir/Menu.cpp.obj: CXX_COMPILER__grafy_1_unscanned_Debug C$:/Users/cinek/CLionProjects/grafy_1/Menu.cpp || cmake_object_order_depends_target_grafy_1
   DEP_FILE = CMakeFiles\grafy_1.dir\Menu.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -static-libstdc++ -static-libgcc -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\grafy_1.dir
+  OBJECT_FILE_DIR = CMakeFiles\grafy_1.dir
+
+build CMakeFiles/grafy_1.dir/MSTAlgorithm.cpp.obj: CXX_COMPILER__grafy_1_unscanned_Debug C$:/Users/cinek/CLionProjects/grafy_1/MSTAlgorithm.cpp || cmake_object_order_depends_target_grafy_1
+  DEP_FILE = CMakeFiles\grafy_1.dir\MSTAlgorithm.cpp.obj.d
+  FLAGS = -static-libstdc++ -static-libgcc -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\grafy_1.dir
+  OBJECT_FILE_DIR = CMakeFiles\grafy_1.dir
+
+build CMakeFiles/grafy_1.dir/DijkstraAlgorithm.cpp.obj: CXX_COMPILER__grafy_1_unscanned_Debug C$:/Users/cinek/CLionProjects/grafy_1/DijkstraAlgorithm.cpp || cmake_object_order_depends_target_grafy_1
+  DEP_FILE = CMakeFiles\grafy_1.dir\DijkstraAlgorithm.cpp.obj.d
+  FLAGS = -static-libstdc++ -static-libgcc -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\grafy_1.dir
+  OBJECT_FILE_DIR = CMakeFiles\grafy_1.dir
+
+build CMakeFiles/grafy_1.dir/FordBellmanAlgorithm.cpp.obj: CXX_COMPILER__grafy_1_unscanned_Debug C$:/Users/cinek/CLionProjects/grafy_1/FordBellmanAlgorithm.cpp || cmake_object_order_depends_target_grafy_1
+  DEP_FILE = CMakeFiles\grafy_1.dir\FordBellmanAlgorithm.cpp.obj.d
+  FLAGS = -static-libstdc++ -static-libgcc -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\grafy_1.dir
+  OBJECT_FILE_DIR = CMakeFiles\grafy_1.dir
+
+build CMakeFiles/grafy_1.dir/TestAlgorithmPerformance.cpp.obj: CXX_COMPILER__grafy_1_unscanned_Debug C$:/Users/cinek/CLionProjects/grafy_1/TestAlgorithmPerformance.cpp || cmake_object_order_depends_target_grafy_1
+  DEP_FILE = CMakeFiles\grafy_1.dir\TestAlgorithmPerformance.cpp.obj.d
+  FLAGS = -static-libstdc++ -static-libgcc -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\grafy_1.dir
   OBJECT_FILE_DIR = CMakeFiles\grafy_1.dir
 
@@ -75,8 +99,8 @@ build CMakeFiles/grafy_1.dir/Menu.cpp.obj: CXX_COMPILER__grafy_1_unscanned_Debug
 #############################################
 # Link the executable grafy_1.exe
 
-build grafy_1.exe: CXX_EXECUTABLE_LINKER__grafy_1_Debug CMakeFiles/grafy_1.dir/main.cpp.obj CMakeFiles/grafy_1.dir/Graph.cpp.obj CMakeFiles/grafy_1.dir/Menu.cpp.obj
-  FLAGS = -g
+build grafy_1.exe: CXX_EXECUTABLE_LINKER__grafy_1_Debug CMakeFiles/grafy_1.dir/main.cpp.obj CMakeFiles/grafy_1.dir/Graph.cpp.obj CMakeFiles/grafy_1.dir/Menu.cpp.obj CMakeFiles/grafy_1.dir/MSTAlgorithm.cpp.obj CMakeFiles/grafy_1.dir/DijkstraAlgorithm.cpp.obj CMakeFiles/grafy_1.dir/FordBellmanAlgorithm.cpp.obj CMakeFiles/grafy_1.dir/TestAlgorithmPerformance.cpp.obj
+  FLAGS = -static-libstdc++ -static-libgcc -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\grafy_1.dir
   POST_BUILD = cd .

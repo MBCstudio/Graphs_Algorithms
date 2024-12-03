@@ -7,19 +7,22 @@
 
 
 #include "Graph.h"
+#include "MSTAlgorithm.h"
+#include "DijkstraAlgorithm.h"
+#include "FordBellmanAlgorithm.h"
 #include <string>
-
-enum ProblemType {
-    MST,
-    SHORTEST_PATH,
-    NONE
-};
 
 class Menu {
 private:
-    Graph* graph;
-    ProblemType currentProblem;
+    Graph* graph; // Tworzenie nowego grtafu (wskaznik)
+    // Wskażniki do algorytmów
+    MSTAlgorithm* primAlgorithm;
+    MSTAlgorithm* kruskalAlgorithm;
+    DijkstraAlgorithm* dijkstraAlgorithm;
+    FordBellmanAlgorithm* fordBellmanAlgorithm;
+    enum Problem { NONE, MST, SHORTEST_PATH } currentProblem;
 
+    // Deklaracja funkcji
     void displayMainMenu();
     void displayAlgorithmMenu();
     void selectProblem();
@@ -29,6 +32,7 @@ private:
     void runAlgorithm1();
     void runAlgorithm2();
 public:
+    // Konstruktory i destruktory
     Menu();
     ~Menu();
     void start();
