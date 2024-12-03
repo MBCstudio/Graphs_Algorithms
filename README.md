@@ -1,24 +1,33 @@
 # Graph Algorithms Application
 
-This application provides an interactive platform to explore and analyze graph algorithms. It includes implementations of **Minimum Spanning Tree (MST)**, **Bellman-Ford**, and **Dijkstra's** algorithms. The app is designed with two distinct modes for flexibility and experimentation.
+This application implements and compares key graph algorithms, focusing on solving **Minimum Spanning Tree (MST)** and **Shortest Path** problems. The application offers two modes: single-use for solving specific graph problems and test mode for benchmarking algorithm efficiency under various conditions.
 
 ---
 
 ## Features
 
-- **Graph Algorithms**:
-  - **Minimum Spanning Tree (MST)**: Finds the subset of edges forming a tree that minimizes the total weight of the graph.
-  - **Bellman-Ford Algorithm**: Calculates the shortest paths from a single source vertex, handling graphs with negative weights.
-  - **Dijkstra's Algorithm**: Determines the shortest paths in a graph with non-negative weights using an efficient greedy approach.
-  
-- **Two Operational Modes**:
-  1. **Single Use Mode**: 
-     - Solve a single graph problem, focusing on step-by-step algorithm execution.
-  2. **Test Mode**: 
-     - Compare algorithm performance on multiple graphs to evaluate effectiveness and efficiency.
+### Algorithms Implemented:
+1. **Minimum Spanning Tree (MST)**:
+   - **Kruskal's Algorithm**: Utilizes a union-find data structure for efficient edge management. Complexity: `O(E log E)`.
+   - **Prim's Algorithm**: Employs a priority queue to iteratively build the MST. Complexity: `O(E + V log V)`.
+2. **Shortest Path**:
+   - **Dijkstra's Algorithm**: Calculates shortest paths from a single source with non-negative edge weights. Complexity: `O((V + E) log V)`.
+   - **Bellman-Ford Algorithm**: Handles graphs with negative edge weights and detects negative weight cycles. Complexity: `O(VE)`.
 
-- **User Interface**:
-  - Written in Polish, offering intuitive interaction for Polish-speaking users.
+### Two Operational Modes:
+1. **Single Use Mode**:
+   - Solve a single graph problem with a step-by-step demonstration.
+   - Input graph data manually or load from a file.
+2. **Test Mode**:
+   - Benchmark algorithms on multiple graphs of varying sizes and densities.
+   - Compare execution times and performance metrics.
+
+---
+
+## Graph Representation
+
+- **Adjacency List**: Efficient for sparse graphs, offering reduced memory usage.
+- **Adjacency Matrix**: Suitable for dense graphs, providing faster edge lookups.
 
 ---
 
